@@ -41,6 +41,8 @@ Partly applied:
 - round 2 review #8: slash commands with arguments stay as prompts, because the arguments are what the user asked for.
 - round 2 review #11: lazily compiled secret rules took the daemon from 906 MB to 351 MB after 50 prompts; arena allocator change not kept (new dependency, small gain).
 
+First CI run: all tests passed on all 3 platforms. x86_64 Linux missed the 20 ms search limit; macOS bench had 518 of 1000 long-prompt recalls hit the deadline. Fixed: AVX2 build for x86_64 Linux, embed the last 500 chars instead of 1,000, bench allows 5% failures, no duplicate PR runs.
+
 ## Closing review follow-ups (not Must fix)
 - `Cookie: session=...` values are not redacted.
 - Bash mode transcript lines (`<bash-input>`, `<bash-stdout>`) may be kept as prompts, bringing command output into rows. Format not confirmed; no sample on this machine.

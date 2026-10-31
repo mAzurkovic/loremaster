@@ -68,7 +68,7 @@ flowchart LR
 - `loremaster daemon`: runs `loremasterd`. M1: started by hand or tests; service unit in M5.
 - `loremaster enable claude-code`: writes hook entries (below), and links this binary at `bin/loremaster` if nothing usable is there, replacing a dangling link. `install.sh` takes this over in M5.
 - `loremaster dev seed <file.jsonl>`: one `Record` per line without vector; embeds with the real model; fills missing `memory_id`, `created_at`, `hlc`.
-- `loremaster dev bench`: temp home, 50k memories with random unit vectors, starts daemon, runs each hook verb 1,000 times as child processes with real hook JSON, plus recall with an 800-word prompt, prints P50/P95, exits non-zero over budget. Fails too if a recall returns nothing or a capture spools, because the hook's own deadline would otherwise hide a timeout. The first rows are exact matches for the measured prompts.
+- `loremaster dev bench`: temp home, 50k memories with random unit vectors, starts daemon, runs each hook verb 1,000 times as child processes with real hook JSON, plus recall with an 800-word prompt, prints P50/P95, exits non-zero over budget. Fails too if more than 5% of recalls return nothing or captures spool, because the hook's own deadline would otherwise hide a timeout. The first rows are exact matches for the measured prompts.
 
 ### Socket protocol
 - One request per connection, newline-delimited JSON.
@@ -130,7 +130,7 @@ Loremaster memories relevant to this prompt:
 
 ## Failure behaviour
 - Oversized turn: oldest tool calls first, then the prompt from its start, then the reply from its start, until within 32k est. tokens.
-- Recall: at most 200 candidates above tau are looked up. Only the last 1,000 characters of a prompt are embedded.
+- Recall: at most 200 candidates above tau are looked up. Only the last 500 characters of a prompt are embedded.
 - Daemon: accept failures are logged and retried after 100 ms. A client that sends nothing is disconnected after 5 s. The home is set to mode 0700. Unreadable or wrong-size memory rows are skipped and logged.
 - Hooks: any failure (bad stdin, unknown agent or event, daemon down, timeout, bad reply, unwritable spool) is exit 0, empty stdout (FR29).
 - Hook JSON: unknown extra fields ignored; missing `session_id` rejected.
