@@ -28,7 +28,7 @@ M2 ─┤                          ├─► final exit checks
   - Superseded and tombstoned seeded rows never injected (FR9, FR30).
 - Needs: none.
 - Design: yes.
-- Status: not started.
+- Status: in progress. PR #1 open.
 
 ## M2. Identity and service foundation
 - Delivers: AWS stack with GitHub device-flow login and auth middleware. `loremaster login` issues a per-device token, over SSH too.
@@ -40,6 +40,9 @@ M2 ─┤                          ├─► final exit checks
   - Deleted device token rejected on the next request.
   - Token for user A cannot read or write user B (NFR7).
 - Needs: none. `loremaster login` joins M1's CLI once both exist.
+- Features:
+  - F1. CI/CD: cache the Cargo build and the embedding model in CI, require CI on `main` (done), and run the latency checks on a nightly schedule instead of on each PR. Docs: tasks. Needs: none. Status: not started.
+  - The rest of M2 is split into features when it starts.
 - Status: not started.
 
 ## M3. Sync
