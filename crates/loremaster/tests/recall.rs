@@ -435,7 +435,7 @@ fn query_text_keeps_the_end_of_a_long_prompt() {
     assert_eq!(query_text("short"), "short");
     let long = format!("{}the question", "é".repeat(2000));
     let query = query_text(&long);
-    assert_eq!(query.chars().count(), 1000);
+    assert_eq!(query.chars().count(), 500);
     assert!(query.ends_with("the question"));
 }
 

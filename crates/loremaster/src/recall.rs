@@ -17,7 +17,7 @@ const PROFILE_MAX_CHARS: usize = 300 * 3;
 const PROFILE_USER_FIRST_CHARS: usize = 150 * 3;
 const PROMPT_MAX_CHARS: usize = 500 * 3;
 const RELEVANCE_THRESHOLD: f32 = 0.6;
-const MAX_QUERY_CHARS: usize = 1000;
+const MAX_QUERY_CHARS: usize = 500;
 /// Far more than fit in the cap. Each one costs store lookups inside the hook's deadline.
 const MAX_PROMPT_CANDIDATES: usize = 200;
 const PROFILE_HALF_LIFE_DAYS: f64 = 90.0;
