@@ -28,7 +28,7 @@ M2 ─┤                          ├─► final exit checks
   - Superseded and tombstoned seeded rows never injected (FR9, FR30).
 - Needs: none.
 - Design: yes.
-- Status: not started.
+- Status: in progress. PR #1 open.
 
 ## M2. Identity and service foundation
 - Delivers: AWS stack with GitHub device-flow login and auth middleware. `loremaster login` issues a per-device token, over SSH too.

@@ -45,6 +45,8 @@ First CI run: all tests passed on all 3 platforms. x86_64 Linux missed the 20 ms
 
 Second CI run: tests passed on all platforms; the wall-clock search test failed on the macOS runner after passing there before. Search speed and bench steps no longer block a merge; the laptop bench is the pass or fail.
 
+Third CI run: green on macOS arm64, Linux x86_64 and Linux arm64.
+
 ## Closing review follow-ups (not Must fix)
 - `Cookie: session=...` values are not redacted.
 - Bash mode transcript lines (`<bash-input>`, `<bash-stdout>`) may be kept as prompts, bringing command output into rows. Format not confirmed; no sample on this machine.
@@ -54,8 +56,9 @@ Second CI run: tests passed on all platforms; the wall-clock search test failed 
 - On macOS, ONNX Runtime leaves a 28 KB onnxruntime-*.mlmodelc directory in the temp dir each time the model loads, which suggests its CoreML provider is in use. Not investigated.
 - Line not covered: the file-lock error path in lock_daemon, only reachable on filesystems without locks.
 - Branch coverage is not measured; it needs nightly Rust.
-- CI (5.3) has never run: no git repo or remote.
+- macOS CI runner: long-prompt recall P95 103 ms, 122 of 1000 past the hook deadline, on a shared VM. Linux runners and the laptop are well within budget. A slow Mac may get no memory on prompts over a few hundred words.
+- Never run inside a real Claude Code session.
 
 ## Waiting on the user
-- Nightly Rust for branch coverage; git repo and GitHub remote (public or private, which account).
+- Whether to run the live Claude Code test before merging.
 - CI/CD: own milestone right after M1 (recommended) or tasks at the start of M2.
