@@ -228,7 +228,7 @@ Each subtask lists expected inputs and outputs, then `Fail:` cases (bad input, m
   - All within budget → exit 0. Any P95 over budget → that row `FAIL`, exit 1.
   - Temp home deleted on exit.
   - Fail: daemon does not start within 30 s → `daemon did not start:` plus last 20 log lines, exit 1, temp home deleted.
-- [x] 5.3 `.github/workflows/ci.yml`: on `macos-14` (arm64), `ubuntu-latest` (x86_64), `ubuntu-24.04-arm` (arm64): `cargo fmt --check`, `cargo clippy -D warnings`, `cargo test --all-features`, `cargo run --release --features dev -- dev bench`. Workflow green. The search speed and bench steps do not block a merge.
+- [x] 5.3 `.github/workflows/ci.yml`: on `macos-15` (arm64), `ubuntu-latest` (x86_64), `ubuntu-24.04-arm` (arm64): `cargo fmt --check`, `cargo clippy -D warnings`, `cargo test --all-features`, `cargo run --release --features dev -- dev bench`. Workflow green. The search speed and bench steps do not block a merge.
   - Push to a branch → 3 jobs, each with steps fmt, clippy, test, bench, all green.
   - A test made to fail → that job red.
 - [x] 5.4 `scripts/samples.jsonl` (~20 seed records: user and project scope, each kind, one episode, one superseded, one tombstone) and `scripts/try-hook.sh`: with `LOREMASTER_HOME` set and daemon running, sends one fixture hook event per verb from `crates/loremaster-agents/tests/fixtures/` and prints each output plus new `turn_queue` rows. Running it per design "Local run" shows profile, recall output and a captured, redacted turn.
