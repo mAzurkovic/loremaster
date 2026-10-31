@@ -1,0 +1,8 @@
+{
+  "hook_event_name": "SessionStart",
+  "source": "startup",
+  "session_id": "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee",
+  "transcript_path": "__FIXTURE_DIR__/transcript.jsonl",
+  "cwd": "/tmp/fixture-project",
+  "model": "gpt-5"
+}

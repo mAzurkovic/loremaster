@@ -1,0 +1,10 @@
+{
+  "hook_event_name": "Stop",
+  "stop_hook_active": false,
+  "last_assistant_message": "Set a to 2 in config.toml.",
+  "session_id": "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee",
+  "transcript_path": "__FIXTURE_DIR__/transcript.jsonl",
+  "cwd": "/tmp/fixture-project",
+  "model": "gpt-5",
+  "turn_id": "t3"
+}

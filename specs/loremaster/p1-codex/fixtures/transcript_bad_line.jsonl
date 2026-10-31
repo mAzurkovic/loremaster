@@ -1,0 +1,22 @@
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"session_meta","payload":{"id":"aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee","cwd":"/tmp/fixture-project","originator":"codex_cli_rs","cli_version":"0.0.0"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"turn_context","payload":{"cwd":"/tmp/fixture-project","model":"gpt-5"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"event_msg","payload":{"type":"turn_started","turn_id":"t1"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"response_item","payload":{"type":"message","role":"user","content":[{"type":"input_text","text":"run the tests"}]}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"event_msg","payload":{"type":"user_message","message":"run the tests"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"response_item","payload":{"type":"reasoning","summary":[],"encrypted_content":null}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"response_item","payload":{"type":"function_call","name":"shell_command","arguments":"{\"command\": \"cargo test\"}","call_id":"call_1"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"response_item","payload":{"type":"function_call_output","call_id":"call_1","output":"Exit code: 101\nWall time: 1 seconds\nOutput:\nerror[E0425]: cannot find value `x`"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"response_item","payload":{"type":"function_call","name":"exec_command","arguments":"{\"cmd\": \"sed -n 1,5p src/a.rs\"}","call_id":"call_2"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"response_item","payload":{"type":"function_call_output","call_id":"call_2","output":"Exit code: 0\nOutput:\nfn main() {}"}}
+{not json
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"response_item","payload":{"type":"message","role":"assistant","content":[{"type":"output_text","text":"Fixed the missing variable; tests pass."}]}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"event_msg","payload":{"type":"agent_message","message":"Fixed the missing variable; tests pass."}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"event_msg","payload":{"type":"turn_complete","turn_id":"t1"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"event_msg","payload":{"type":"user_message","message":"clone the deploy repo"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"response_item","payload":{"type":"local_shell_call","call_id":"call_3","status":"completed","action":{"type":"exec","command":["git","clone","https://ghp_Z9xK2mQ7vL4tR8wN1pB6sD3fH5jG0cY2uE7a@github.com/acme/deploy"]}}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"event_msg","payload":{"type":"exec_command_end","call_id":"call_3","exit_code":128,"aggregated_output":"fatal: repository not found"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"event_msg","payload":{"type":"agent_message","message":"Cloned the deploy repo."}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"event_msg","payload":{"type":"user_message","message":"update the config"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"response_item","payload":{"type":"custom_tool_call","name":"apply_patch","call_id":"call_4","input":"*** Begin Patch\n*** Update File: config.toml\n@@\n-a = 1\n+a = 2\n*** End Patch"}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"event_msg","payload":{"type":"patch_apply_end","call_id":"call_4","turn_id":"t3","stdout":"","stderr":"","success":true}}
+{"timestamp":"2026-10-30T10:00:00.000Z","type":"event_msg","payload":{"type":"agent_message","message":"Set a to 2 in config.toml."}}
