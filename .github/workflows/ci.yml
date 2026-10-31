@@ -27,6 +27,10 @@ jobs:
       - name: test
         run: cargo test --locked --workspace --all-features
       - name: search speed
+        # Shared runners are too noisy for wall-clock limits to block a merge.
+        continue-on-error: true
         run: cargo test --locked --release -p loremaster --lib index
       - name: bench
+        # Shared runners are too noisy for wall-clock limits to block a merge.
+        continue-on-error: true
         run: LOREMASTER_HOME="$RUNNER_TEMP/loremaster" cargo run --locked --release -p loremaster --features dev -- dev bench

@@ -151,7 +151,7 @@ Loremaster memories relevant to this prompt:
 - `/verify` uses this recipe for black-box checks.
 
 ## Verification (exit criteria)
-- NFR1, NFR3: `dev bench` on CI macOS arm64 and Linux runners, and on a developer laptop. `capture` measured even though `async` hides it.
+- NFR1, NFR3: `dev bench` on a developer laptop is the pass or fail. It also runs on CI macOS arm64 and Linux runners, without blocking a merge, because shared runners are too noisy for wall-clock limits. `capture` measured even though `async` hides it.
 - FR21, FR22: `tests/secrets/corpus.jsonl` (~50 lines `{category, text, secret}`: cloud keys, GitHub/Slack/Stripe/OpenAI/Anthropic tokens, PEM keys, JWTs, connection-string passwords). Pass = no `secret` survives. Custom pattern written to `config.toml`, next redaction applies it.
 - FR23, FR24: profile and per-prompt output never over 300 / 500 est. tokens; prompt with no match gives no output.
 - FR26, FR36: `ProjectId` unit tests (SSH vs HTTPS, port, `.git`, no remote); seeded project-X memory never returned in project Y.
