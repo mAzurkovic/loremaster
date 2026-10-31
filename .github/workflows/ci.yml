@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, ubuntu-latest, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install toolchain
+        run: rustup show active-toolchain || rustup toolchain install
+      - name: fmt
+        run: cargo fmt --all --check
+      - name: clippy
+        run: cargo clippy --locked --workspace --all-targets --all-features -- -D warnings
+      - name: clippy without dev tools
+        run: cargo clippy --locked --workspace --all-targets -- -D warnings
+      - name: test without dev tools
+        run: cargo test --locked -p loremaster --test cli
+      - name: test
+        run: cargo test --locked --workspace --all-features
+      - name: search speed
+        run: cargo test --locked --release -p loremaster --lib index
+      - name: bench
+        run: LOREMASTER_HOME="$RUNNER_TEMP/loremaster" cargo run --locked --release -p loremaster --features dev -- dev bench

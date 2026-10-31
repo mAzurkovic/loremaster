@@ -1,0 +1,21 @@
+{"type": "fact", "kind": "preference", "scope": "user", "text": "Prefers pnpm over npm"}
+{"type": "fact", "kind": "preference", "scope": "user", "text": "Prefers concise answers without preamble"}
+{"type": "fact", "kind": "correction", "scope": "user", "text": "Don't mock the database in integration tests"}
+{"type": "fact", "kind": "correction", "scope": "user", "text": "Never force-push to shared branches"}
+{"type": "fact", "kind": "decision", "scope": "project", "text": "Deploys go through ArgoCD, not manual kubectl", "project_id": "fixture-project"}
+{"type": "fact", "kind": "decision", "scope": "project", "text": "Use Alembic for database migrations", "project_id": "fixture-project"}
+{"type": "fact", "kind": "decision", "scope": "project", "text": "The API layer is written in axum", "project_id": "fixture-project"}
+{"type": "fact", "kind": "environment", "scope": "project", "text": "CI runs on self-hosted arm64 runners", "project_id": "fixture-project"}
+{"type": "fact", "kind": "environment", "scope": "project", "text": "Local Postgres listens on port 5433", "project_id": "fixture-project"}
+{"type": "fact", "kind": "environment", "scope": "user", "text": "Works on a MacBook with Apple Silicon"}
+{"type": "fact", "kind": "pitfall", "scope": "project", "text": "The staging database resets every Sunday night", "project_id": "fixture-project"}
+{"type": "fact", "kind": "pitfall", "scope": "project", "text": "Tests hang if Redis is not running", "project_id": "fixture-project"}
+{"type": "fact", "kind": "pitfall", "scope": "user", "text": "Homebrew Python breaks virtualenvs after upgrades"}
+{"type": "fact", "kind": "preference", "scope": "user", "text": "Prefers tabs in Makefiles only, spaces elsewhere"}
+{"type": "fact", "kind": "decision", "scope": "project", "text": "Logs are structured JSON in production", "project_id": "fixture-project"}
+{"type": "fact", "kind": "correction", "scope": "project", "text": "Use UTC for every stored timestamp", "project_id": "fixture-project"}
+{"type": "episode", "scope": "project", "project_id": "fixture-project", "text": "Tried upgrading to Vite 6; build failed on the SSR plugin; reverted"}
+{"type": "episode", "scope": "project", "project_id": "fixture-project", "text": "Moved deployment to ArgoCD; the old Jenkins deploy job was removed"}
+{"type": "fact", "kind": "decision", "scope": "project", "project_id": "fixture-project", "text": "OLD-SUPERSEDED deploys run through Jenkins", "superseded_by": "current-deploy-fact"}
+{"memory_id": "current-deploy-fact", "type": "fact", "kind": "decision", "scope": "project", "project_id": "fixture-project", "text": "How we deploy today: ArgoCD syncs on merge to main"}
+{"memory_id": "deleted-sample", "type": "fact", "kind": "decision", "scope": "user", "text": "OLD-TOMBSTONED how we deploy: copy files over FTP", "deleted": true}

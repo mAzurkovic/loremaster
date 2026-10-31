@@ -109,6 +109,7 @@ Each subtask lists expected inputs and outputs, then `Fail:` cases (bad input, m
 - [x] 3.2 `crates/loremaster/tests/secrets/corpus.jsonl` (~50 `{category, text, secret}` lines across FR21 categories) and `tests/redact_corpus.rs`: no `secret` survives; custom pattern written to a temp `config.toml` applies on next call (FR21, FR22).
   - Example line: `{"category":"jwt","text":"curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.c2lnbmF0dXJl' api/me","secret":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.c2lnbmF0dXJl"}`.
   - Categories with ≥ 3 lines each: `aws`, `gcp`, `azure`, `github`, `slack`, `stripe`, `openai`, `anthropic`, `private-key`, `jwt`, `connection-string`.
+  - Each sample in the file is split by a `<cut>` marker, which the test removes first, so that secret scanners do not flag it.
   - Test output → `50/50 redacted`; any survivor fails with its category and line number.
   - Fail: corpus line whose `secret` is not inside `text` → test fails with `bad fixture line <n>`.
 - [x] 3.3 `crates/loremaster/src/embed.rs`: model download from `Qdrant/bge-small-en-v1.5-onnx-Q` commit `aa8f8b060edb00e03bfdd08813a2949946c8ba55` (5 files), SHA-256 pinned in code (computed from the real files), atomic write; `Embedder` on `fastembed` 7.5.0 (`default-features = false`, `ort-download-binaries-native-tls`), user-defined model, CLS pooling, normalized 384 dims, `Mutex` + `spawn_blocking`. Tests: bad hash rejected; two similar sentences score higher than unrelated ones.

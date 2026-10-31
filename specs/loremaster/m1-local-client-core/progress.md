@@ -1,5 +1,5 @@
 # Progress
-Round: 4
+Round: 4 (closing round)
 
 | Task | Status | Attempts | Last failure |
 |------|--------|----------|--------------|
@@ -26,7 +26,10 @@ Round 3: verify PASS, 171 of 174 cases, no product defect (2 were invalid test k
 - Round 3 review #2: catch-up holds back the last turn when the transcript changed in the last 60 s. Spool replay still treats a Stop pointer's last turn as finished, because task 4.1 needs 2 lines to give 2 rows at once; a later turn in progress during replay can lose its final reply.
 - Round 3 review #7: profile now reports memory ids, marked after delivery. Spec updated to match.
 
+Closing round: verify 33 of 34; review 2 Must fix, both fixed (same prompt typed twice merged turns; Bearer tokens outside curl stored).
+
 Rejected findings:
+- Closing verify #16, queued prompt has no turn: its test lines had no `origin.kind`. All 39 real human queued prompts in local transcripts have `origin.kind: human`, which the code requires so that task notifications stay out.
 - round 2 review #19, hash check on existing model files: fsync before rename closes the power-loss case; the design fetches only missing files.
 - round 2 review #5 as written (reply after processing): conflicts with the design line that session_end replies on receipt. Fixed instead with catch-up of open sessions on start and spooling failed jobs.
 
@@ -37,6 +40,11 @@ Spec corrections applied by user decision, 2026-10-31: rows per Stop, profile wi
 Partly applied:
 - round 2 review #8: slash commands with arguments stay as prompts, because the arguments are what the user asked for.
 - round 2 review #11: lazily compiled secret rules took the daemon from 906 MB to 351 MB after 50 prompts; arena allocator change not kept (new dependency, small gain).
+
+## Closing review follow-ups (not Must fix)
+- `Cookie: session=...` values are not redacted.
+- Bash mode transcript lines (`<bash-input>`, `<bash-stdout>`) may be kept as prompts, bringing command output into rows. Format not confirmed; no sample on this machine.
+- A Stop with `last_assistant_message: ""` would blank the transcript reply. Not confirmed that Claude Code sends this.
 
 ## Known issues
 - On macOS, ONNX Runtime leaves a 28 KB onnxruntime-*.mlmodelc directory in the temp dir each time the model loads, which suggests its CoreML provider is in use. Not investigated.
