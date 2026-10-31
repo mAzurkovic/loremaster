@@ -56,9 +56,11 @@ fn user_entries(content: &Value) -> Vec<Entry> {
 
 /// A prompt the user typed while the agent was working. It may have no `user` line of its own.
 fn queued_prompt(attachment: &Value) -> Option<Entry> {
+    // Harness events carry their own origin. A line with no origin at all is taken as the user's.
+    let origin = &attachment["origin"]["kind"];
     let is_human_prompt = attachment["type"] == "queued_command"
         && attachment["commandMode"] == "prompt"
-        && attachment["origin"]["kind"] == "human";
+        && (origin.is_null() || origin == "human");
     is_human_prompt
         .then(|| attachment["prompt"].as_str())
         .flatten()

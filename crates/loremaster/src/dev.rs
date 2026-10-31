@@ -329,8 +329,8 @@ fn report_row(
 }
 
 fn stop_daemon(daemon: &mut Child) {
-    // Nothing in the bench home is worth a clean stop, and it is deleted next.
-    let _ = daemon.kill();
+    // A clean stop, because a killed process leaves ONNX Runtime's temp files behind.
+    let _ = Command::new("kill").arg(daemon.id().to_string()).status();
     let _ = daemon.wait();
 }
 

@@ -589,3 +589,14 @@ fn a_prompt_retried_after_a_tool_call_is_two_turns() {
     assert_eq!(turns[0].0.tool_calls.len(), 1);
     assert!(turns[1].0.tool_calls.is_empty());
 }
+
+#[test]
+fn a_queued_prompt_with_no_origin_is_still_a_prompt() {
+    let line = serde_json::json!({"type":"attachment","attachment":{"type":"queued_command","prompt":"also check the lint","commandMode":"prompt"}});
+    assert_eq!(
+        ClaudeCodeAdapter.parse_line(&line),
+        [loremaster_agents::Entry::Prompt(
+            "also check the lint".to_owned()
+        )]
+    );
+}

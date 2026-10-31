@@ -12,7 +12,8 @@ use serde::Deserialize;
 use crate::config::load_patterns;
 
 /// gitleaks `config/gitleaks.toml`, MIT licensed, at commit
-/// 5f6ec56cfa6f8c67648d863582c7ae2f206d5c1c.
+/// 5f6ec56cfa6f8c67648d863582c7ae2f206d5c1c, without the sample keys in its `gcp-api-key` allowlist.
+/// Allowlists are not read here, and secret scanners flag those keys.
 const GITLEAKS_TOML: &str = include_str!("gitleaks.toml");
 const GENERIC_RULE: &str = "generic-api-key";
 const COMPILED_SIZE_LIMIT: usize = 64 * 1024 * 1024;

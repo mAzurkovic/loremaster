@@ -148,6 +148,15 @@ impl Daemon {
     pub fn kill9(mut self) {
         self.child.kill().unwrap();
         self.child.wait().unwrap();
+        // A killed process cannot remove the temp files ONNX Runtime made for it.
+        let marker = format!("-{}-", self.child.id());
+        for entry in fs::read_dir(std::env::temp_dir()).unwrap().flatten() {
+            let name = entry.file_name().to_string_lossy().into_owned();
+            if name.starts_with("onnxruntime-") && name.contains(&marker) {
+                let _ = fs::remove_dir_all(entry.path());
+                let _ = fs::remove_file(entry.path());
+            }
+        }
         std::mem::forget(self);
     }
 }
