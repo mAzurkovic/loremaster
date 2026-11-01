@@ -16,6 +16,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install toolchain
         run: rustup show active-toolchain || rustup toolchain install
+      - uses: Swatinem/rust-cache@v2
+      # After rust-cache: post steps run in reverse, and rust-cache deletes files in target/ when it saves.
+      - uses: actions/cache@v4
+        with:
+          path: target/tmp/shared-models
+          key: embedding-model-${{ hashFiles('crates/loremaster/src/embed.rs') }}
       - name: fmt
         run: cargo fmt --all --check
       - name: clippy
@@ -26,11 +32,3 @@ jobs:
         run: cargo test --locked -p loremaster --test cli
       - name: test
         run: cargo test --locked --workspace --all-features
-      - name: search speed
-        # Shared runners are too noisy for wall-clock limits to block a merge.
-        continue-on-error: true
-        run: cargo test --locked --release -p loremaster --lib index
-      - name: bench
-        # Shared runners are too noisy for wall-clock limits to block a merge.
-        continue-on-error: true
-        run: LOREMASTER_HOME="$RUNNER_TEMP/loremaster" cargo run --locked --release -p loremaster --features dev -- dev bench
