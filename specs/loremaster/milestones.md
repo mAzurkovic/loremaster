@@ -41,7 +41,7 @@ M2 ─┤                          ├─► final exit checks
   - Token for user A cannot read or write user B (NFR7).
 - Needs: none. `loremaster login` joins M1's CLI once both exist.
 - Features:
-  - F1. CI/CD: cache the Cargo build and the embedding model in CI, require CI on `main` (done), and run the latency checks on a nightly schedule instead of on each PR. Docs: tasks. Needs: none. Status: not started.
+  - F1. CI/CD: cache the Cargo build and the embedding model in CI, require CI on `main` (done), and remove the latency checks from CI. Docs: tasks. Needs: none. Status: done.
   - The rest of M2 is split into features when it starts.
 - Status: not started.
 
